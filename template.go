@@ -133,6 +133,7 @@ func (t *Template) Execute(c *TemplateContext) ([]byte, error) {
 		"toLower":    c.toLower,
 		"toTitle":    c.toTitle,
 		"toUpper":    c.toUpper,
+		"hostname":   c.hostname,
 	}).Parse(string(contents))
 
 	if err != nil {
@@ -175,6 +176,7 @@ func (t *Template) init() error {
 		"toLower":    t.noop,
 		"toTitle":    t.noop,
 		"toUpper":    t.noop,
+		"hostname":   t.noop,
 	}).Parse(string(contents))
 
 	if err != nil {
@@ -358,6 +360,11 @@ func (c *TemplateContext) toUpper(s string) (string, error) {
 // replacement value.
 func (c *TemplateContext) replaceAll(f, t, s string) (string, error) {
 	return strings.Replace(s, f, t, -1), nil
+}
+
+// hostname returns the host name reported by the kernel.
+func (c *TemplateContext) hostname() (string, error) {
+	return os.Hostname(), nil
 }
 
 // DependencyType is an enum type that says the kind of the dependency.
