@@ -9,6 +9,7 @@ import (
 	"log"
 	"strings"
 	"text/template"
+	"os"
 
 	"github.com/hashicorp/consul-template/util"
 )
